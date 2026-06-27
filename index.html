@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DiabEase — India's Trusted Diabetes Care Platform</title>
+<meta name="description" content="Order diabetes medicines online, consult specialist doctors, upload prescriptions, and manage your diabetes — all in one trusted platform.">
+<meta property="og:title" content="DiabEase — Diabetes Care Made Easy">
+<meta property="og:description" content="India's most trusted diabetes care platform. Medicines, doctors, CGM devices and more.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#1565C0;--blue-dark:#0d47a1;--blue-light:#E3F0FF;--blue-mid:#2980D9;
+  --green:#2E7D32;--green-dark:#1b5e20;--green-light:#E8F5E9;--green-mid:#43A047;
+  --teal:#00695C;--teal-light:#E0F2F1;
+  --white:#fff;--gray-50:#F8FAFC;--gray-100:#F1F5F9;--gray-200:#E2E8F0;
+  --gray-400:#94A3B8;--gray-600:#475569;--gray-700:#334155;--gray-800:#1E293B;
+  --radius-sm:8px;--radius-md:14px;--radius-lg:20px;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+  --shadow-md:0 4px 20px rgba(0,0,0,.09);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--gray-800);background:var(--white);line-height:1.6;font-size:16px}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.container{max-width:1200px;margin:0 auto;padding:0 2rem}
+.text-center{text-align:center}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;transition:all .18s;padding:10px 22px}
+.btn-primary{background:var(--blue);color:var(--white)}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.btn-secondary{background:var(--white);color:var(--blue);border:2px solid var(--blue)}
+.btn-secondary:hover{background:var(--blue-light)}
+.btn-green{background:var(--green);color:var(--white)}
+.btn-green:hover{background:var(--green-dark);transform:translateY(-1px)}
+.btn-outline-white{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.6)}
+.btn-outline-white:hover{background:rgba(255,255,255,.1)}
+.btn-lg{padding:14px 32px;font-size:16px;border-radius:10px}
+.btn-sm{padding:7px 16px;font-size:13px}
+
+/* ===== NAVBAR ===== */
+.navbar{background:var(--white);border-bottom:1px solid var(--gray-200);height:68px;position:sticky;top:0;z-index:500;box-shadow:var(--shadow-sm)}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-logo{display:flex;align-items:center;gap:8px;font-size:24px;font-weight:800;color:var(--blue);letter-spacing:-.5px}
+.nav-logo .dot{color:var(--green)}
+.nav-logo .icon{font-size:22px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--gray-600);transition:color .15s;padding:4px 0;border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--blue);border-bottom-color:var(--blue)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cart{position:relative;background:var(--gray-100);border:none;width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+.nav-cart-badge{position:absolute;top:-4px;right:-4px;background:var(--blue);color:var(--white);font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hamburger{display:none;background:none;border:none;cursor:pointer;font-size:24px;color:var(--gray-800)}
+
+/* ===== ANNOUNCEMENT BAR ===== */
+.announce-bar{background:var(--blue);color:var(--white);text-align:center;padding:8px 16px;font-size:13px;font-weight:500}
+.announce-bar a{color:#90CAF9;text-decoration:underline;margin-left:6px}
+
+/* ===== HERO ===== */
+.hero{background:linear-gradient(135deg,#E3F2FD 0%,#E8F5E9 60%,#E0F7FA 100%);padding:72px 0 56px;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--white);color:var(--blue);font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;box-shadow:var(--shadow-sm);margin-bottom:20px;border:1px solid var(--gray-200)}
+.hero h1{font-size:44px;font-weight:900;line-height:1.12;color:var(--gray-800);margin-bottom:18px;letter-spacing:-.5px}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero h1 strong{color:var(--green)}
+.hero-sub{font-size:16px;color:var(--gray-600);margin-bottom:28px;max-width:460px;line-height:1.7}
+.hero-search{display:flex;background:var(--white);border:2px solid var(--gray-200);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);margin-bottom:28px;max-width:500px}
+.hero-search input{flex:1;border:none;outline:none;padding:14px 18px;font-size:15px;color:var(--gray-800)}
+.hero-search input::placeholder{color:var(--gray-400)}
+.hero-search button{background:var(--blue);color:var(--white);border:none;padding:14px 24px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s}
+.hero-search button:hover{background:var(--blue-dark)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap}
+.stat-item{text-align:left}
+.stat-num{font-size:26px;font-weight:800;color:var(--blue);line-height:1}
+.stat-lbl{font-size:12px;color:var(--gray-600);font-weight:500;margin-top:2px}
+.stat-divider{width:1px;background:var(--gray-200)}
+
+/* Hero right cards */
+.hero-cards{display:flex;flex-direction:column;gap:14px}
+.hero-card{background:var(--white);border-radius:var(--radius-md);padding:16px 18px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:14px;border:1px solid var(--gray-200);transition:transform .2s}
+.hero-card:hover{transform:translateX(-4px)}
+.hcard-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.bg-blue{background:var(--blue-light)}
+.bg-green{background:var(--green-light)}
+.bg-teal{background:var(--teal-light)}
+.bg-yellow{background:#FFFBEB}
+.hcard-info h4{font-size:14px;font-weight:700;color:var(--gray-800);margin-bottom:2px}
+.hcard-info p{font-size:12px;color:var(--gray-600)}
+.hcard-badge{margin-left:auto;flex-shrink:0;font-size:11px;font-weight:700;padding:4px 9px;border-radius:6px}
+.badge-rx{background:#FCE7F3;color:#9D174D}
+.badge-price{background:var(--green-light);color:var(--green)}
+.badge-new{background:#FEF9C3;color:#854D0E}
+.online-dot{width:10px;height:10px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 2px #dcfce7;margin-left:auto;flex-shrink:0}
+
+/* ===== SECTION BASE ===== */
+.section{padding:72px 0}
+.section-bg{background:var(--gray-50)}
+.section-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.section-title{font-size:32px;font-weight:800;color:var(--gray-800);margin-bottom:12px;letter-spacing:-.3px}
+.section-sub{font-size:15px;color:var(--gray-600);max-width:580px;line-height:1.7}
+.section-header{margin-bottom:40px}
+.section-header.center{text-align:center}
+.section-header.center .section-sub{margin:0 auto}
+.view-all{display:inline-flex;align-items:center;gap:6px;color:var(--blue);font-size:14px;font-weight:600;margin-top:28px;transition:gap .15s}
+.view-all:hover{gap:10px}
+
+/* ===== CATEGORIES ===== */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cat-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius-md);padding:24px 18px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--blue-light),transparent);opacity:0;transition:opacity .2s}
+.cat-card:hover{border-color:var(--blue);box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.cat-card:hover::before{opacity:1}
+.cat-icon{font-size:30px;margin-bottom:14px}
+.cat-card h3{font-size:14px;font-weight:700;color:var(--gray-800);margin-bottom:4px;position:relative}
+.cat-card p{font-size:12px;color:var(--gray-600);line-height:1.5;position:relative}
+.cat-tag{display:inline-block;margin-top:10px;font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-light);padding:3px 10px;border-radius:4px;position:relative}
+
+/* ===== MEDICINE CARDS ===== */
+.filter-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.ftab{padding:8px 18px;border-radius:20px;border:1.5px solid var(--gray-200);font-size:13px;font-weight:600;cursor:pointer;color:var(--gray-600);background:var(--white);transition:all .15s}
+.ftab:hover{border-color:var(--blue);color:var(--blue)}
+.ftab.active{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+.med-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.med-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;transition:all .2s}
+.med-card:hover{border-color:var(--blue);box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.med-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:44px;background:var(--gray-50);position:relative}
+.med-mfr{position:absolute;top:8px;left:8px;font-size:10px;font-weight:700;background:var(--white);color:var(--gray-600);padding:3px 8px;border-radius:4px;box-shadow:var(--shadow-sm)}
+.med-body{padding:14px}
+.med-body h4{font-size:14px;font-weight:700;color:var(--gray-800);margin-bottom:2px}
+.med-generic{font-size:11px;color:var(--gray-600);margin-bottom:8px}
+.med-rx{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#9D174D;background:#FCE7F3;padding:3px 7px;border-radius:4px;margin-bottom:8px}
+.med-price-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.med-price{font-size:20px;font-weight:800;color:var(--blue)}
+.med-mrp{font-size:12px;color:var(--gray-400);text-decoration:line-through;margin-left:4px}
+.med-off{font-size:11px;font-weight:700;color:var(--green);background:var(--green-light);padding:2px 7px;border-radius:4px}
+.med-stars{font-size:11px;color:var(--gray-600);margin-bottom:10px}
+.med-stars span{color:#F59E0B}
+.add-cart{width:100%;background:var(--blue);color:var(--white);border:none;border-radius:8px;padding:9px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
+.add-cart:hover{background:var(--blue-dark)}
+
+/* ===== PRESCRIPTION ===== */
+.pres-section{background:linear-gradient(135deg,var(--blue) 0%,#0a3d8f 100%);color:var(--white);padding:72px 0}
+.pres-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.pres-badge{display:inline-block;background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:16px;letter-spacing:.06em;border:1px solid rgba(255,255,255,.2)}
+.pres-section h2{font-size:34px;font-weight:800;margin-bottom:12px;line-height:1.2}
+.pres-section p{font-size:15px;opacity:.85;max-width:420px;line-height:1.7;margin-bottom:4px}
+.pres-steps{display:flex;flex-direction:column;gap:18px;margin-top:32px}
+.pres-step{display:flex;align-items:flex-start;gap:16px}
+.step-circle{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.step-content h4{font-size:15px;font-weight:700;margin-bottom:3px}
+.step-content p{font-size:13px;opacity:.8;margin:0}
+.upload-box{background:rgba(255,255,255,.1);border:2px dashed rgba(255,255,255,.35);border-radius:var(--radius-lg);padding:44px 32px;text-align:center;backdrop-filter:blur(4px)}
+.upload-icon{font-size:48px;margin-bottom:14px}
+.upload-box h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.upload-box p{font-size:13px;opacity:.8;margin-bottom:22px;line-height:1.6}
+.upload-cta{background:var(--white);color:var(--blue);padding:13px 32px;border-radius:var(--radius-sm);font-size:15px;font-weight:700;cursor:pointer;border:none;display:inline-block;transition:all .15s}
+.upload-cta:hover{background:var(--blue-light);transform:translateY(-1px)}
+.upload-methods{display:flex;gap:14px;justify-content:center;margin-top:16px}
+.upload-method{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:var(--white);font-size:12px;font-weight:600;padding:7px 16px;border-radius:6px;cursor:pointer}
+.upload-method:hover{background:rgba(255,255,255,.25)}
+.or-text{font-size:12px;opacity:.65;margin:14px 0}
+.pres-note{font-size:12px;opacity:.7;margin-top:14px}
+
+/* ===== DOCTORS ===== */
+.doc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.doc-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius-md);padding:28px 22px;cursor:pointer;transition:all .2s;text-align:center}
+.doc-card:hover{border-color:var(--green);box-shadow:0 4px 24px rgba(46,125,50,.14);transform:translateY(-3px)}
+.doc-avatar{width:76px;height:76px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:30px;background:var(--blue-light);position:relative}
+.doc-avail-dot{position:absolute;bottom:3px;right:3px;width:14px;height:14px;background:#22C55E;border-radius:50%;border:2px solid var(--white)}
+.doc-name{font-size:17px;font-weight:700;color:var(--gray-800);margin-bottom:4px}
+.doc-spec{font-size:13px;color:var(--blue);font-weight:600;margin-bottom:3px}
+.doc-exp{font-size:12px;color:var(--gray-600);margin-bottom:6px}
+.doc-langs{font-size:11px;color:var(--gray-500);margin-bottom:14px}
+.doc-rating{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+.stars{color:#F59E0B;font-size:14px}
+.doc-rating-num{font-size:13px;font-weight:600;color:var(--gray-700)}
+.doc-rating-count{font-size:12px;color:var(--gray-400)}
+.doc-avail{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--green);background:var(--green-light);padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.doc-fee{font-size:16px;font-weight:700;color:var(--green);margin-bottom:14px}
+.doc-methods{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.doc-method{font-size:11px;font-weight:600;color:var(--gray-600);background:var(--gray-100);padding:4px 10px;border-radius:6px}
+.consult-btn{width:100%;background:var(--green);color:var(--white);border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+.consult-btn:hover{background:var(--green-dark)}
+
+/* ===== WHY DIABEASE ===== */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-card{border-radius:var(--radius-md);padding:32px 24px;transition:transform .2s}
+.why-card:hover{transform:translateY(-3px)}
+.why-card.blue{background:var(--blue-light)}
+.why-card.green{background:var(--green-light)}
+.why-card.teal{background:var(--teal-light)}
+.why-icon{width:54px;height:54px;border-radius:14px;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.why-card h3{font-size:17px;font-weight:700;color:var(--gray-800);margin-bottom:8px}
+.why-card p{font-size:13px;color:var(--gray-600);line-height:1.75}
+
+/* ===== BLOOD SUGAR TRACKER PROMO ===== */
+.tracker-section{background:var(--gray-800);color:var(--white);padding:64px 0}
+.tracker-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.tracker-label{color:#90CAF9;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.tracker-section h2{font-size:32px;font-weight:800;margin-bottom:14px;line-height:1.2}
+.tracker-section p{font-size:15px;color:#94A3B8;line-height:1.7;margin-bottom:28px;max-width:420px}
+.tracker-features{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.tracker-feat{display:flex;align-items:center;gap:12px;font-size:14px;color:#CBD5E1}
+.feat-check{width:22px;height:22px;border-radius:50%;background:#22C55E;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.tracker-widget{background:var(--gray-700);border-radius:var(--radius-lg);padding:28px;border:1px solid #475569}
+.tw-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.tw-header h4{font-size:15px;font-weight:700;color:var(--white)}
+.tw-date{font-size:12px;color:#64748B}
+.reading-row{display:flex;gap:12px;margin-bottom:20px}
+.reading{background:#1E293B;border-radius:10px;padding:14px;flex:1;text-align:center}
+.reading-val{font-size:28px;font-weight:800;color:#22C55E;line-height:1}
+.reading-unit{font-size:11px;color:#64748B;margin-top:4px}
+.reading-lbl{font-size:12px;color:#94A3B8;margin-top:6px}
+.reading.warning .reading-val{color:#F59E0B}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:80px;margin-bottom:8px}
+.bar{flex:1;border-radius:4px 4px 0 0;background:#22C55E;transition:height .3s}
+.bar.w{background:#F59E0B}
+.bar.h{background:#EF4444}
+.chart-labels{display:flex;gap:6px}
+.chart-labels span{flex:1;font-size:9px;color:#64748B;text-align:center}
+
+/* ===== TESTIMONIALS ===== */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.test-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius-md);padding:26px}
+.test-stars{color:#F59E0B;font-size:15px;margin-bottom:12px;letter-spacing:2px}
+.test-quote{font-size:14px;color:var(--gray-600);line-height:1.75;margin-bottom:18px}
+.test-author{display:flex;align-items:center;gap:12px}
+.test-av{width:40px;height:40px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--blue);flex-shrink:0}
+.test-name{font-size:14px;font-weight:700;color:var(--gray-800)}
+.test-loc{font-size:11px;color:var(--gray-600)}
+.test-condition{font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-light);padding:2px 8px;border-radius:4px;margin-top:3px;display:inline-block}
+
+/* ===== BLOGS ===== */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.blog-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;transition:all .2s}
+.blog-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.blog-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:48px;background:var(--gray-50)}
+.blog-body{padding:18px}
+.blog-cat{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.blog-body h3{font-size:15px;font-weight:700;color:var(--gray-800);margin-bottom:8px;line-height:1.4}
+.blog-body p{font-size:13px;color:var(--gray-600);margin-bottom:12px;line-height:1.6}
+.blog-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--gray-400)}
+.blog-read-more{color:var(--blue);font-weight:600}
+
+/* ===== APP PROMO ===== */
+.app-section{background:linear-gradient(135deg,var(--green) 0%,#004d40 100%);color:var(--white);padding:72px 0}
+.app-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.app-label{color:#A5D6A7;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.app-section h2{font-size:34px;font-weight:800;margin-bottom:14px;line-height:1.2}
+.app-section p{font-size:15px;opacity:.85;line-height:1.7;margin-bottom:28px;max-width:400px}
+.app-badges{display:flex;gap:14px;flex-wrap:wrap}
+.app-badge{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.3);color:var(--white);padding:12px 22px;border-radius:10px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.app-badge:hover{background:rgba(255,255,255,.2)}
+.app-badge-icon{font-size:22px}
+.app-badge-text{font-size:12px;opacity:.8}
+.app-badge-name{font-size:15px;font-weight:700;display:block}
+.app-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.app-stat{background:rgba(255,255,255,.1);border-radius:var(--radius-md);padding:20px;text-align:center;border:1px solid rgba(255,255,255,.15)}
+.app-stat-num{font-size:28px;font-weight:800;line-height:1}
+.app-stat-lbl{font-size:12px;opacity:.8;margin-top:6px}
+
+/* ===== NEWSLETTER ===== */
+.newsletter{background:var(--blue-light);padding:64px 0;text-align:center;border-top:1px solid var(--gray-200)}
+.newsletter-inner{max-width:560px;margin:0 auto}
+.newsletter h2{font-size:28px;font-weight:800;color:var(--gray-800);margin-bottom:10px}
+.newsletter p{font-size:15px;color:var(--gray-600);margin-bottom:26px}
+.newsletter-form{display:flex;gap:0;border-radius:10px;overflow:hidden;box-shadow:var(--shadow-md);max-width:460px;margin:0 auto 16px}
+.newsletter-form input{flex:1;border:none;outline:none;padding:14px 18px;font-size:14px;color:var(--gray-800)}
+.newsletter-form button{background:var(--blue);color:var(--white);border:none;padding:14px 24px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s}
+.newsletter-form button:hover{background:var(--blue-dark)}
+.newsletter-note{font-size:12px;color:var(--gray-400)}
+
+/* ===== FOOTER ===== */
+.footer{background:#0F172A;color:var(--white);padding:56px 0 28px}
+.footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand h3{font-size:22px;font-weight:800;margin-bottom:12px}
+.footer-brand h3 span{color:#4ADE80}
+.footer-brand p{font-size:13px;color:#64748B;line-height:1.75;max-width:260px;margin-bottom:20px}
+.trust-badges{display:flex;gap:8px;flex-wrap:wrap}
+.trust-badge{background:#1E293B;border:1px solid #334155;color:#94A3B8;font-size:11px;padding:5px 12px;border-radius:20px}
+.footer-col h4{font-size:12px;font-weight:700;color:#94A3B8;margin-bottom:16px;text-transform:uppercase;letter-spacing:.08em}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul li a{font-size:13px;color:#64748B;transition:color .15s}
+.footer-col ul li a:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid #1E293B;padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.footer-legal{font-size:12px;color:#334155}
+.payment-icons{display:flex;gap:8px;flex-wrap:wrap}
+.pay-icon{background:#1E293B;border:1px solid #334155;color:#64748B;font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px}
+
+/* ===== CHATBOT ===== */
+.chat-fab{position:fixed;bottom:28px;right:28px;width:58px;height:58px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;box-shadow:0 4px 24px rgba(21,101,192,.45);z-index:999;border:none;transition:transform .2s}
+.chat-fab:hover{transform:scale(1.08)}
+.chat-window{position:fixed;bottom:100px;right:28px;width:340px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);z-index:998;display:none;flex-direction:column;overflow:hidden;max-height:460px;border:1px solid var(--gray-200)}
+.chat-window.open{display:flex}
+.chat-header{background:var(--blue);color:var(--white);padding:16px 18px;display:flex;align-items:center;justify-content:space-between}
+.chat-header-info{display:flex;align-items:center;gap:10px}
+.chat-header-info .av{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
+.chat-header-info h4{font-size:14px;font-weight:700}
+.chat-header-info p{font-size:11px;opacity:.8}
+.chat-close{background:rgba(255,255,255,.15);border:none;color:var(--white);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:220px;background:var(--gray-50)}
+.chat-msg{max-width:88%;font-size:13px;padding:9px 13px;border-radius:12px;line-height:1.5}
+.chat-msg.bot{background:var(--white);color:var(--gray-800);align-self:flex-start;border-radius:4px 12px 12px 12px;border:1px solid var(--gray-200)}
+.chat-msg.user{background:var(--blue);color:var(--white);align-self:flex-end;border-radius:12px 4px 12px 12px}
+.chat-disclaimer{font-size:10px;color:var(--gray-400);text-align:center;padding:6px 12px;background:var(--white);border-top:1px solid var(--gray-100)}
+.chat-input-area{display:flex;border-top:1px solid var(--gray-200)}
+.chat-input-area input{flex:1;border:none;outline:none;padding:12px 14px;font-size:13px;background:var(--white)}
+.chat-input-area button{background:var(--blue);color:var(--white);border:none;padding:12px 16px;cursor:pointer;font-size:13px;font-weight:700;transition:background .15s}
+.chat-input-area button:hover{background:var(--blue-dark)}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+  .hero-inner,.pres-inner,.tracker-inner,.app-inner{grid-template-columns:1fr}
+  .hero-cards{display:none}
+  .cat-grid,.med-grid{grid-template-columns:repeat(2,1fr)}
+  .doc-grid,.why-grid,.test-grid,.blog-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .hamburger{display:block}
+  .hero h1{font-size:32px}
+  .section-title{font-size:26px}
+}
+@media(max-width:560px){
+  .cat-grid,.med-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero h1{font-size:26px}
+  .hero-search{max-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  🎉 Get flat 20% off on your first order — Use code <strong>EASE20</strong>
+  <a href="#">Shop now →</a>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo"><span class="icon">🩺</span> Diab<span class="dot">Ease</span></a>
+    <ul class="nav-links">
+      <li><a href="#medicines" class="active">Medicines</a></li>
+      <li><a href="#consult">Consult Doctor</a></li>
+      <li><a href="#upload">Upload Rx</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#learn">Learn</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cart" title="View cart">🛒<span class="nav-cart-badge">3</span></button>
+      <button class="btn btn-secondary btn-sm">Log in</button>
+      <button class="btn btn-primary btn-sm">Sign up free</button>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">🏆 India's Trusted Diabetes Platform</div>
+        <h1>Manage your <em>diabetes</em> — <strong>made easy</strong></h1>
+        <p class="hero-sub">Order medicines, consult specialist doctors, upload prescriptions, and track your blood sugar — all in one trusted, secure platform.</p>
+        <div class="hero-search">
+          <input type="text" id="heroSearch" placeholder="Search medicines, doctors, CGM devices…">
+          <button onclick="handleSearch()">🔍 Search</button>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" onclick="scrollTo('#medicines')">Shop medicines</button>
+          <button class="btn btn-secondary btn-lg" onclick="scrollTo('#consult')">Consult a doctor</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item"><div class="stat-num">2M+</div><div class="stat-lbl">Patients served</div></div>
+          <div class="stat-divider"></div>
+          <div class="stat-item"><div class="stat-num">500+</div><div class="stat-lbl">Specialist doctors</div></div>
+          <div class="stat-divider"></div>
+          <div class="stat-item"><div class="stat-num">1,200+</div><div class="stat-lbl">Medicines</div></div>
+          <div class="stat-divider"></div>
+          <div class="stat-item"><div class="stat-num">4.9 ⭐</div><div class="stat-lbl">App rating</div></div>
+        </div>
+      </div>
+      <div class="hero-cards">
+        <div class="hero-card">
+          <div class="hcard-icon bg-blue">💊</div>
+          <div class="hcard-info">
+            <h4>Ozempic 1mg — Semaglutide</h4>
+            <p>Novo Nordisk · GLP-1 Receptor Agonist</p>
+          </div>
+          <span class="hcard-badge badge-rx">Rx</span>
+        </div>
+        <div class="hero-card">
+          <div class="hcard-icon bg-green">🩸</div>
+          <div class="hcard-info">
+            <h4>Glycomet 500 SR — Metformin</h4>
+            <p>USV · 30 tablets · Type 2 Diabetes</p>
+          </div>
+          <span class="hcard-badge badge-price">₹42</span>
+        </div>
+        <div class="hero-card">
+          <div class="hcard-icon bg-blue">👨‍⚕️</div>
+          <div class="hcard-info">
+            <h4>Dr. Arjun Sharma</h4>
+            <p>Endocrinologist · Next slot: 3:00 PM today</p>
+          </div>
+          <div class="online-dot" title="Online now"></div>
+        </div>
+        <div class="hero-card">
+          <div class="hcard-icon bg-teal">📊</div>
+          <div class="hcard-info">
+            <h4>FreeStyle Libre 2 CGM</h4>
+            <p>Abbott · 14-day continuous glucose sensor</p>
+          </div>
+          <span class="hcard-badge badge-new">New</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section section-bg">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Browse all categories</div>
+      <h2 class="section-title">Shop by category</h2>
+      <p class="section-sub">From essential medicines to the latest CGM technology — everything diabetes in one place.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card"><div class="cat-icon">💉</div><h3>GLP-1 Medicines</h3><p>Semaglutide, Liraglutide, Dulaglutide and more</p><span class="cat-tag">48 medicines</span></div>
+      <div class="cat-card"><div class="cat-icon">🧪</div><h3>Insulin</h3><p>Rapid, long-acting, ultra-fast, pre-mixed insulins</p><span class="cat-tag">72 products</span></div>
+      <div class="cat-card"><div class="cat-icon">💊</div><h3>SGLT2 Inhibitors</h3><p>Dapagliflozin, Empagliflozin, Canagliflozin</p><span class="cat-tag">36 medicines</span></div>
+      <div class="cat-card"><div class="cat-icon">🔵</div><h3>Metformin & DPP-4</h3><p>Glucophage, Januvia, Galvus, Onglyza</p><span class="cat-tag">60 medicines</span></div>
+      <div class="cat-card"><div class="cat-icon">📊</div><h3>Glucometers & CGM</h3><p>FreeStyle Libre, Accu-Chek, One Touch, Dexcom</p><span class="cat-tag">24 devices</span></div>
+      <div class="cat-card"><div class="cat-icon">🩸</div><h3>Pens & Needles</h3><p>Insulin pens, pen needles, lancets, syringes</p><span class="cat-tag">58 products</span></div>
+      <div class="cat-card"><div class="cat-icon">🌿</div><h3>Supplements</h3><p>Diabetic nutrition, vitamins, protein, fibre</p><span class="cat-tag">90 products</span></div>
+      <div class="cat-card"><div class="cat-icon">⚖️</div><h3>Weight Management</h3><p>Wegovy, Mounjaro, Ozempic alternatives</p><span class="cat-tag">22 medicines</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDICINES -->
+<section class="section" id="medicines">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Top picks</div>
+      <h2 class="section-title">Featured medicines</h2>
+      <p class="section-sub">Genuine medicines from authorised distributors. All Rx medicines verified by licensed pharmacists.</p>
+    </div>
+    <div class="filter-tabs">
+      <div class="ftab active">All</div>
+      <div class="ftab">GLP-1</div>
+      <div class="ftab">Insulin</div>
+      <div class="ftab">Metformin</div>
+      <div class="ftab">SGLT2</div>
+      <div class="ftab">Sulfonylureas</div>
+      <div class="ftab">Devices</div>
+    </div>
+    <div class="med-grid">
+      <div class="med-card">
+        <div class="med-img"><span class="med-mfr">USV</span>💊</div>
+        <div class="med-body">
+          <h4>Glycomet 500 SR</h4>
+          <div class="med-generic">Metformin HCl 500mg · 30 tablets</div>
+          <div class="med-price-row"><div><span class="med-price">₹42</span><span class="med-mrp">₹55</span></div><span class="med-off">24% off</span></div>
+          <div class="med-stars"><span>★★★★★</span> 4.9 (2,341 reviews)</div>
+          <button class="add-cart">Add to cart</button>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-img"><span class="med-mfr">Novo Nordisk</span>💉</div>
+        <div class="med-body">
+          <h4>Ozempic 1mg Pen</h4>
+          <div class="med-generic">Semaglutide 1mg · 1 pre-filled pen</div>
+          <div class="med-rx">🔒 Prescription required</div>
+          <div class="med-price-row"><div><span class="med-price">₹8,900</span></div><span class="med-off">5% off</span></div>
+          <div class="med-stars"><span>★★★★★</span> 4.9 (876 reviews)</div>
+          <button class="add-cart">Upload Rx & buy</button>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-img"><span class="med-mfr">Boehringer</span>🧪</div>
+        <div class="med-body">
+          <h4>Jardiance 10mg</h4>
+          <div class="med-generic">Empagliflozin 10mg · 10 tablets</div>
+          <div class="med-rx">🔒 Prescription required</div>
+          <div class="med-price-row"><div><span class="med-price">₹3,200</span><span class="med-mrp">₹3,800</span></div><span class="med-off">16% off</span></div>
+          <div class="med-stars"><span>★★★★☆</span> 4.7 (512 reviews)</div>
+          <button class="add-cart">Upload Rx & buy</button>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-img"><span class="med-mfr">Abbott</span>📊</div>
+        <div class="med-body">
+          <h4>FreeStyle Libre 2 Sensor</h4>
+          <div class="med-generic">CGM Sensor · 14-day continuous monitoring</div>
+          <div class="med-price-row"><div><span class="med-price">₹3,490</span><span class="med-mrp">₹3,900</span></div><span class="med-off">10% off</span></div>
+          <div class="med-stars"><span>★★★★★</span> 4.9 (1,204 reviews)</div>
+          <button class="add-cart">Add to cart</button>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-img"><span class="med-mfr">Sun Pharma</span>💊</div>
+        <div class="med-body">
+          <h4>Januvia 100mg</h4>
+          <div class="med-generic">Sitagliptin 100mg · 14 tablets</div>
+          <div class="med-rx">🔒 Prescription required</div>
+          <div class="med-price-row"><div><span class="med-price">₹980</span><span class="med-mrp">₹1,150</span></div><span class="med-off">15% off</span></div>
+          <div class="med-stars"><span>★★★★☆</span> 4.6 (389 reviews)</div>
+          <button class="add-cart">Upload Rx & buy</button>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-img"><span class="med-mfr">Novo Nordisk</span>🩸</div>
+        <div class="med-body">
+          <h4>Lantus SoloStar</h4>
+          <div class="med-generic">Insulin Glargine 100U/mL · 3mL pen</div>
+          <div class="med-rx">🔒 Prescription required</div>
+          <div class="med-price-row"><div><span class="med-price">₹1,240</span><span class="med-mrp">₹1,400</span></div><span class="med-off">11% off</span></div>
+          <div class="med-stars"><span>★★★★★</span> 4.8 (2,102 reviews)</div>
+          <button class="add-cart">Upload Rx & buy</button>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-img"><span class="med-mfr">Cipla</span>💊</div>
+        <div class="med-body">
+          <h4>Amaryl 2mg</h4>
+          <div class="med-generic">Glimepiride 2mg · 30 tablets</div>
+          <div class="med-rx">🔒 Prescription required</div>
+          <div class="med-price-row"><div><span class="med-price">₹96</span><span class="med-mrp">₹120</span></div><span class="med-off">20% off</span></div>
+          <div class="med-stars"><span>★★★★☆</span> 4.5 (744 reviews)</div>
+          <button class="add-cart">Upload Rx & buy</button>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-img"><span class="med-mfr">Roche</span>📊</div>
+        <div class="med-body">
+          <h4>Accu-Chek Instant S Kit</h4>
+          <div class="med-generic">Glucometer + 10 test strips · Bluetooth</div>
+          <div class="med-price-row"><div><span class="med-price">₹1,299</span><span class="med-mrp">₹1,599</span></div><span class="med-off">19% off</span></div>
+          <div class="med-stars"><span>★★★★★</span> 4.8 (3,441 reviews)</div>
+          <button class="add-cart">Add to cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="text-center"><a href="#" class="view-all">View all 1,200+ medicines →</a></div>
+  </div>
+</section>
+
+<!-- PRESCRIPTION UPLOAD -->
+<section class="pres-section" id="upload">
+  <div class="container">
+    <div class="pres-inner">
+      <div>
+        <div class="pres-badge">PRESCRIPTION-REQUIRED MEDICINES</div>
+        <h2>Order with a prescription — fast and easy</h2>
+        <p>Verified by licensed pharmacists within 30 minutes. Safe, legally compliant, and hassle-free.</p>
+        <div class="pres-steps">
+          <div class="pres-step"><div class="step-circle">1</div><div class="step-content"><h4>Select medicine</h4><p>Search and add prescription medicines to your cart</p></div></div>
+          <div class="pres-step"><div class="step-circle">2</div><div class="step-content"><h4>Upload your prescription</h4><p>PDF, JPG, PNG — drag & drop or camera capture</p></div></div>
+          <div class="pres-step"><div class="step-circle">3</div><div class="step-content"><h4>Pharmacist verifies in 30 min</h4><p>Our licensed pharmacists review and approve your order</p></div></div>
+          <div class="pres-step"><div class="step-circle">4</div><div class="step-content"><h4>Pay and receive at home</h4><p>Same-day delivery in major cities, 24–48 hrs elsewhere</p></div></div>
+        </div>
+      </div>
+      <div class="upload-box">
+        <div class="upload-icon">📄</div>
+        <h3>Upload your prescription</h3>
+        <p>Drag & drop your prescription here, or choose an upload method below.</p>
+        <button class="upload-cta">📤 Browse files to upload</button>
+        <div class="upload-methods">
+          <div class="upload-method">📸 Camera</div>
+          <div class="upload-method">📂 Files</div>
+          <div class="upload-method">☁️ Cloud</div>
+        </div>
+        <div class="or-text">— or —</div>
+        <p style="font-size:13px;opacity:.85">Don't have a prescription? <a href="#consult" style="color:#fff;font-weight:700;text-decoration:underline">Consult a doctor online →</a><br>and get a digital prescription instantly.</p>
+        <p class="pres-note">✅ Prescription details are stored securely and never shared without your consent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section class="section section-bg" id="consult">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Online consultations</div>
+      <h2 class="section-title">Consult specialist doctors</h2>
+      <p class="section-sub">Board-certified endocrinologists and diabetologists available via video, voice, or chat. Get a digital prescription instantly.</p>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-avatar">👨‍⚕️<div class="doc-avail-dot"></div></div>
+        <div class="doc-name">Dr. Arjun Sharma</div>
+        <div class="doc-spec">Endocrinologist</div>
+        <div class="doc-exp">MBBS, MD — 14 years experience</div>
+        <div class="doc-langs">🗣️ Hindi, English</div>
+        <div class="doc-rating"><span class="stars">★★★★★</span><span class="doc-rating-num">4.9</span><span class="doc-rating-count">(832 reviews)</span></div>
+        <div class="doc-avail">🟢 Available now</div>
+        <div class="doc-fee">₹499 / consultation</div>
+        <div class="doc-methods"><span class="doc-method">📹 Video</span><span class="doc-method">📞 Voice</span><span class="doc-method">💬 Chat</span></div>
+        <button class="consult-btn">Book consultation</button>
+      </div>
+      <div class="doc-card">
+        <div class="doc-avatar">👩‍⚕️<div class="doc-avail-dot"></div></div>
+        <div class="doc-name">Dr. Priya Mehta</div>
+        <div class="doc-spec">Diabetologist</div>
+        <div class="doc-exp">MBBS, DNB — 11 years experience</div>
+        <div class="doc-langs">🗣️ Hindi, Gujarati, English</div>
+        <div class="doc-rating"><span class="stars">★★★★★</span><span class="doc-rating-num">4.8</span><span class="doc-rating-count">(612 reviews)</span></div>
+        <div class="doc-avail">🟢 Next slot: 2:30 PM</div>
+        <div class="doc-fee">₹399 / consultation</div>
+        <div class="doc-methods"><span class="doc-method">📹 Video</span><span class="doc-method">💬 Chat</span></div>
+        <button class="consult-btn">Book consultation</button>
+      </div>
+      <div class="doc-card">
+        <div class="doc-avatar">👨‍⚕️<div class="doc-avail-dot"></div></div>
+        <div class="doc-name">Dr. Rajesh Kumar</div>
+        <div class="doc-spec">Obesity & Diabetes Specialist</div>
+        <div class="doc-exp">MBBS, MD, DM — 18 years experience</div>
+        <div class="doc-langs">🗣️ English, Tamil, Kannada</div>
+        <div class="doc-rating"><span class="stars">★★★★★</span><span class="doc-rating-num">4.9</span><span class="doc-rating-count">(1,140 reviews)</span></div>
+        <div class="doc-avail">🟢 Next slot: 4:00 PM</div>
+        <div class="doc-fee">₹699 / consultation</div>
+        <div class="doc-methods"><span class="doc-method">📹 Video</span><span class="doc-method">📞 Voice</span><span class="doc-method">💬 Chat</span></div>
+        <button class="consult-btn">Book consultation</button>
+      </div>
+    </div>
+    <div class="text-center"><a href="#" class="view-all">View all 500+ doctors →</a></div>
+  </div>
+</section>
+
+<!-- WHY DIABEASE -->
+<section class="section">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Why DiabEase</div>
+      <h2 class="section-title">Everything diabetes, one place</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card blue"><div class="why-icon">🔒</div><h3>Prescription-verified ordering</h3><p>Every Rx-required medicine is reviewed by a licensed pharmacist before dispatch. Fully compliant with Indian pharmacy and telemedicine regulations.</p></div>
+      <div class="why-card green"><div class="why-icon">🩺</div><h3>500+ certified specialists</h3><p>Consult endocrinologists and diabetologists via video, voice, or chat. Digital prescriptions generated instantly after the consultation.</p></div>
+      <div class="why-card teal"><div class="why-icon">⚡</div><h3>Same-day delivery</h3><p>4–6 hour delivery in 30+ major cities. Cold-chain logistics maintained for insulin. Free shipping on orders above ₹499.</p></div>
+      <div class="why-card blue"><div class="why-icon">💰</div><h3>Up to 30% savings</h3><p>Genuine medicines at the best prices. Regular coupons, loyalty rewards, and subscription plans for monthly refills.</p></div>
+      <div class="why-card green"><div class="why-icon">📱</div><h3>Health tracking & reports</h3><p>Log blood sugar readings, track HbA1c trends, and share reports directly with your doctor — all within DiabEase.</p></div>
+      <div class="why-card teal"><div class="why-icon">🔄</div><h3>One-tap refills</h3><p>Set automated refill reminders. Reorder any previous medicine in one tap. Never run out of critical diabetes medication again.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKER PROMO -->
+<section class="tracker-section">
+  <div class="container">
+    <div class="tracker-inner">
+      <div>
+        <div class="tracker-label">Built-in health tools</div>
+        <h2>Track your blood sugar — right in the app</h2>
+        <p>Log readings, set reminders, visualise trends, and share reports with your doctor. Your diabetes data, always at hand.</p>
+        <div class="tracker-features">
+          <div class="tracker-feat"><div class="feat-check">✓</div> Blood sugar log with trend graphs</div>
+          <div class="tracker-feat"><div class="feat-check">✓</div> HbA1c tracker and target zones</div>
+          <div class="tracker-feat"><div class="feat-check">✓</div> Insulin dose reminder and history</div>
+          <div class="tracker-feat"><div class="feat-check">✓</div> Shareable health reports for doctors</div>
+          <div class="tracker-feat"><div class="feat-check">✓</div> Integration with FreeStyle Libre & Dexcom</div>
+        </div>
+        <button class="btn btn-outline-white btn-lg">Download the app free →</button>
+      </div>
+      <div class="tracker-widget">
+        <div class="tw-header">
+          <h4>📊 Blood sugar log</h4>
+          <span class="tw-date">Today, June 2026</span>
+        </div>
+        <div class="reading-row">
+          <div class="reading">
+            <div class="reading-val" id="fastingVal">98</div>
+            <div class="reading-unit">mg/dL</div>
+            <div class="reading-lbl">Fasting</div>
+          </div>
+          <div class="reading warning">
+            <div class="reading-val" id="ppVal">152</div>
+            <div class="reading-unit">mg/dL</div>
+            <div class="reading-lbl">Post-meal</div>
+          </div>
+          <div class="reading">
+            <div class="reading-val" id="hba1cVal">6.8</div>
+            <div class="reading-unit">%</div>
+            <div class="reading-lbl">HbA1c</div>
+          </div>
+        </div>
+        <div class="chart-bars" id="chartBars"></div>
+        <div class="chart-labels">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-bg">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Patient stories</div>
+      <h2 class="section-title">Trusted by 2 million+ patients</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">DiabEase has changed how I manage my Type 2 diabetes. The prescription upload is seamless and medicines arrive the next day. Reordering Metformin takes literally 10 seconds.</p>
+        <div class="test-author">
+          <div class="test-av">SR</div>
+          <div><div class="test-name">Suresh Reddy</div><div class="test-loc">Hyderabad</div><div class="test-condition">Type 2 Diabetes</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">I consulted Dr. Priya for my son's Type 1 management. She was thorough, prescribed Lantus, and the digital prescription was ready within 2 minutes of our video call. Outstanding experience!</p>
+        <div class="test-author">
+          <div class="test-av">KP</div>
+          <div><div class="test-name">Kavitha Pillai</div><div class="test-loc">Chennai</div><div class="test-condition">Parent · Type 1 Child</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">Using FreeStyle Libre 2 CGM from DiabEase for 6 months. Best price anywhere, fast delivery, and the blood sugar tracker in the app syncs automatically. Highly recommend.</p>
+        <div class="test-author">
+          <div class="test-av">AM</div>
+          <div><div class="test-name">Anil Malhotra</div><div class="test-loc">New Delhi</div><div class="test-condition">CGM User · T2D</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOGS -->
+<section class="section" id="learn">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Learn about diabetes</div>
+      <h2 class="section-title">Health articles & guides</h2>
+      <p class="section-sub">Expert-written, medically reviewed articles to help you understand and manage diabetes better.</p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-thumb">💉</div>
+        <div class="blog-body">
+          <div class="blog-cat">GLP-1 Medicines</div>
+          <h3>How Ozempic works: the science behind semaglutide</h3>
+          <p>A plain-language explainer on GLP-1 receptor agonists, their mechanism of action, and their role in blood sugar control and weight management.</p>
+          <div class="blog-meta"><span>Dr. Arjun Sharma · 5 min read</span><span class="blog-read-more">Read →</span></div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb">🩺</div>
+        <div class="blog-body">
+          <div class="blog-cat">Diabetes basics</div>
+          <h3>Type 1 vs Type 2 diabetes: understanding the real differences</h3>
+          <p>The causes, management approaches, insulin dependency, and treatment options for Type 1 and Type 2 diabetes explained clearly.</p>
+          <div class="blog-meta"><span>Dr. Priya Mehta · 7 min read</span><span class="blog-read-more">Read →</span></div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb">🥗</div>
+        <div class="blog-body">
+          <div class="blog-cat">Lifestyle</div>
+          <h3>Managing blood sugar with diet and daily exercise</h3>
+          <p>Evidence-based, practical tips for keeping glucose levels in range through everyday food choices, meal timing, and physical activity.</p>
+          <div class="blog-meta"><span>DiabEase Health Team · 6 min read</span><span class="blog-read-more">Read →</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center"><a href="#" class="view-all">View all health articles →</a></div>
+  </div>
+</section>
+
+<!-- APP PROMO -->
+<section class="app-section">
+  <div class="container">
+    <div class="app-inner">
+      <div>
+        <div class="app-label">DiabEase Mobile App</div>
+        <h2>Your diabetes care partner — always in your pocket</h2>
+        <p>Order medicines, book doctors, track blood sugar, set refill reminders, and view your health history. Free for iOS and Android.</p>
+        <div class="app-badges">
+          <div class="app-badge">
+            <div class="app-badge-icon">🍎</div>
+            <div><div class="app-badge-text">Download on the</div><span class="app-badge-name">App Store</span></div>
+          </div>
+          <div class="app-badge">
+            <div class="app-badge-icon">▶</div>
+            <div><div class="app-badge-text">Get it on</div><span class="app-badge-name">Google Play</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="app-stats">
+        <div class="app-stat"><div class="app-stat-num">2M+</div><div class="app-stat-lbl">Active users</div></div>
+        <div class="app-stat"><div class="app-stat-num">4.9 ⭐</div><div class="app-stat-lbl">App Store rating</div></div>
+        <div class="app-stat"><div class="app-stat-num">98%</div><div class="app-stat-lbl">Orders on time</div></div>
+        <div class="app-stat"><div class="app-stat-num">&lt;30 min</div><div class="app-stat-lbl">Rx verification</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <div class="section-label" style="text-align:center">Stay informed</div>
+    <h2>Diabetes health, straight to your inbox</h2>
+    <p>Weekly medicine alerts, blood sugar tips, expert articles, and exclusive offers — no spam, unsubscribe anytime.</p>
+    <div class="newsletter-form">
+      <input type="email" id="emailInput" placeholder="Enter your email address">
+      <button onclick="subscribeNewsletter()">Subscribe</button>
+    </div>
+    <p class="newsletter-note">🔒 Your email is safe. We never share it with third parties. See our <a href="#" style="color:var(--blue)">privacy policy</a>.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>🩺 Diab<span>Ease</span></h3>
+        <p>India's most trusted diabetes care platform. Licensed pharmacy, NABH-accredited telemedicine services, and GDPR-ready data practices.</p>
+        <div class="trust-badges">
+          <span class="trust-badge">🔒 HTTPS Secured</span>
+          <span class="trust-badge">✅ Licensed Pharmacy</span>
+          <span class="trust-badge">🩺 NABH Accredited</span>
+          <span class="trust-badge">🛡️ HIPAA-Inspired</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Medicines</h4>
+        <ul>
+          <li><a href="#">GLP-1 Medicines</a></li>
+          <li><a href="#">Insulin products</a></li>
+          <li><a href="#">Metformin</a></li>
+          <li><a href="#">SGLT2 Inhibitors</a></li>
+          <li><a href="#">Glucometers & CGM</a></li>
+          <li><a href="#">All categories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Consult</h4>
+        <ul>
+          <li><a href="#">Find doctors</a></li>
+          <li><a href="#">Endocrinologists</a></li>
+          <li><a href="#">Diabetologists</a></li>
+          <li><a href="#">Upload prescription</a></li>
+          <li><a href="#">Video consultation</a></li>
+          <li><a href="#">Digital prescription</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About DiabEase</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Terms of service</a></li>
+          <li><a href="#">Refund policy</a></li>
+          <li><a href="#">Contact support</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 DiabEase Health Technologies Pvt. Ltd. · Licensed under the Drugs & Cosmetics Act, India · All rights reserved.</p>
+      <div class="payment-icons">
+        <span class="pay-icon">UPI</span>
+        <span class="pay-icon">Visa</span>
+        <span class="pay-icon">Mastercard</span>
+        <span class="pay-icon">Wallets</span>
+        <span class="pay-icon">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- AI CHATBOT -->
+<button class="chat-fab" onclick="toggleChat()" aria-label="Open AI health assistant">🤖</button>
+<div class="chat-window" id="chatWindow" role="dialog" aria-label="DiabEase AI Health Assistant">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="av">🤖</div>
+      <div><h4>DiabEase AI Assistant</h4><p>Ask about medicines, diabetes, or booking</p></div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="chat-msg bot">Hi! I can help you with diabetes medicines, blood sugar questions, product recommendations, or booking a doctor. How can I help?</div>
+    <div class="chat-msg bot">⚠️ <strong>Disclaimer:</strong> I provide general information only and do not replace professional medical advice. Always consult a licensed doctor for medical decisions.</div>
+  </div>
+  <div class="chat-disclaimer">This AI assistant does not replace professional medical advice.</div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Ask about diabetes, medicines…" onkeydown="if(event.key==='Enter')sendChat()">
+    <button onclick="sendChat()">Send</button>
+  </div>
+</div>
+
+<script>
+// Chat toggle
+function toggleChat(){
+  var w=document.getElementById('chatWindow');
+  w.classList.toggle('open');
+  if(w.classList.contains('open')) document.getElementById('chatInput').focus();
+}
+
+// Chat send
+function sendChat(){
+  var inp=document.getElementById('chatInput');
+  var msg=inp.value.trim();
+  if(!msg) return;
+  var msgs=document.getElementById('chatMsgs');
+  var um=document.createElement('div');
+  um.className='chat-msg user';
+  um.textContent=msg;
+  msgs.appendChild(um);
+  inp.value='';
+  msgs.scrollTop=msgs.scrollHeight;
+  // Simulated bot reply
+  setTimeout(function(){
+    var bm=document.createElement('div');
+    bm.className='chat-msg bot';
+    var replies={
+      'metformin':'Metformin (Glycomet, Glucophage) is typically the first-line medicine for Type 2 diabetes. It works by reducing glucose production in the liver. Common doses are 500mg and 1000mg. It requires a prescription — you can upload yours or consult a doctor on DiabEase.',
+      'ozempic':'Ozempic (Semaglutide 1mg) is a GLP-1 receptor agonist used for Type 2 diabetes and weight management. It\'s a weekly injection. It requires a prescription from a licensed doctor. You can consult one on DiabEase and get a digital prescription instantly.',
+      'cgm':'Continuous Glucose Monitors (CGMs) like FreeStyle Libre 2 and Dexcom G7 measure blood sugar every few minutes without finger pricks. They are available on DiabEase without a prescription.',
+      'default':'That\'s a great question! For accurate medical advice about your diabetes, I\'d recommend consulting one of our specialist doctors on DiabEase — appointments are available from ₹399 and digital prescriptions are issued instantly.'
+    };
+    var key='default';
+    var lm=msg.toLowerCase();
+    if(lm.includes('metformin')||lm.includes('glycomet')) key='metformin';
+    else if(lm.includes('ozempic')||lm.includes('semaglutide')) key='ozempic';
+    else if(lm.includes('cgm')||lm.includes('libre')||lm.includes('monitor')) key='cgm';
+    bm.textContent=replies[key];
+    msgs.appendChild(bm);
+    msgs.scrollTop=msgs.scrollHeight;
+  },800);
+}
+
+// Newsletter
+function subscribeNewsletter(){
+  var val=document.getElementById('emailInput').value.trim();
+  if(!val||!val.includes('@')){alert('Please enter a valid email address.');return;}
+  alert('Thank you! You\'ve subscribed to DiabEase health updates at '+val);
+  document.getElementById('emailInput').value='';
+}
+
+// Search
+function handleSearch(){
+  var q=document.getElementById('heroSearch').value.trim();
+  if(q) alert('Searching for: '+q+'\n\n(In the live app, this would show results from our medicine database)');
+}
+
+// Filter tabs
+document.querySelectorAll('.ftab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.ftab').forEach(function(x){x.classList.remove('active')});
+    t.classList.add('active');
+  });
+});
+
+// Mobile menu toggle
+function toggleMenu(){
+  var links=document.querySelector('.nav-links');
+  if(links.style.display==='flex'){links.style.display='none'}
+  else{links.style.display='flex';links.style.flexDirection='column';links.style.position='absolute';links.style.top='68px';links.style.left='0';links.style.right='0';links.style.background='#fff';links.style.padding='16px 2rem';links.style.borderBottom='1px solid #E2E8F0';links.style.zIndex='400'}
+}
+
+// Smooth scroll
+function scrollTo(id){var el=document.querySelector(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var id=this.getAttribute('href');
+    if(id.length>1){e.preventDefault();var el=document.querySelector(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+  });
+});
+
+// Blood sugar tracker widget bars
+(function(){
+  var data=[98,142,105,178,118,152,130];
+  var max=Math.max.apply(null,data);
+  var bars=document.getElementById('chartBars');
+  if(!bars)return;
+  data.forEach(function(v){
+    var b=document.createElement('div');
+    b.className='bar'+(v>160?' h':v>130?' w':'');
+    b.style.height=Math.round((v/max)*80)+'px';
+    b.title=v+' mg/dL';
+    bars.appendChild(b);
+  });
+})();
+</script>
+</body>
+</html>
